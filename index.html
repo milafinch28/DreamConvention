@@ -1,1104 +1,1338 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dream Convention 2025</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #060a10;
-    --white: #eaf4ff;
-    --gold: #5bc4f5;
-    --gold-light: #93d9ff;
-    --rust: #2a7fc4;
-    --cream: #d0eaf8;
-    --muted: #6a8fa8;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    overflow-x: hidden;
-    cursor: none;
-  }
-
-  /* Custom cursor */
-  .cursor {
-    width: 10px; height: 10px;
-    background: var(--gold);
-    border-radius: 50%;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9999;
-    transition: transform 0.1s ease;
-    mix-blend-mode: difference;
-  }
-  .cursor-ring {
-    width: 36px; height: 36px;
-    border: 1px solid var(--gold);
-    border-radius: 50%;
-    position: fixed;
-    top: 0; left: 0;
-    pointer-events: none;
-    z-index: 9998;
-    transition: transform 0.25s ease, width 0.2s, height 0.2s;
-    mix-blend-mode: difference;
-  }
-
-  /* HERO */
-  .hero {
-    min-height: 100vh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    position: relative;
-    overflow: hidden;
-    padding: 2rem;
-  }
-
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 60% at 80% 20%, rgba(91,196,245,0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 50% at 10% 80%, rgba(42,127,196,0.10) 0%, transparent 55%);
-    pointer-events: none;
-  }
-
-  /* Grain overlay */
-  .hero::after {
-    content: '';
-    position: fixed;
-    inset: -50%;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
-    opacity: 0.03;
-    pointer-events: none;
-    z-index: 100;
-  }
-
-  nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 0;
-    position: relative;
-    z-index: 10;
-  }
-
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-  }
-
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-  }
-
-  .nav-links a {
-    color: var(--muted);
-    text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    transition: color 0.3s;
-  }
-  .nav-links a:hover { color: var(--gold); }
-
-  .hero-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    padding: 4rem 0 2rem;
-    position: relative;
-    z-index: 5;
-  }
-
-  .hero-eyebrow {
-    font-size: 0.72rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .hero-eyebrow::before {
-    content: '';
-    display: inline-block;
-    width: 2.5rem;
-    height: 1px;
-    background: var(--gold);
-  }
-
-  .hero-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(6rem, 18vw, 16rem);
-    line-height: 0.88;
-    letter-spacing: -0.01em;
-    color: var(--white);
-    position: relative;
-  }
-
-  .hero-title span {
-    display: block;
-    -webkit-text-stroke: 1px var(--gold);
-    color: transparent;
-  }
-
-  .hero-subtitle {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: clamp(1.1rem, 2.5vw, 1.6rem);
-    color: var(--muted);
-    margin-top: 1.5rem;
-    max-width: 500px;
-    line-height: 1.5;
-  }
-
-  .hero-cta-group {
-    display: flex;
-    gap: 1rem;
-    margin-top: 3rem;
-    align-items: center;
-  }
-
-  .btn-primary {
-    background: var(--gold);
-    color: var(--black);
-    padding: 1rem 2.5rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    border: none;
-    cursor: none;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.3s, transform 0.2s;
-    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
-  }
-  .btn-primary:hover {
-    background: var(--gold-light);
-    transform: translateY(-2px);
-  }
-
-  .btn-ghost {
-    color: var(--white);
-    font-size: 0.78rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    padding-bottom: 2px;
-    transition: border-color 0.3s, color 0.3s;
-  }
-  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
-
-  .hero-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-bottom: 1.5rem;
-    position: relative;
-    z-index: 5;
-  }
-
-  .hero-date-card {
-    border: 1px solid rgba(91,196,245,0.3);
-    padding: 1rem 1.5rem;
-    background: rgba(91,196,245,0.04);
-    backdrop-filter: blur(8px);
-  }
-  .hero-date-card .label {
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.3rem;
-  }
-  .hero-date-card .value {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.1rem;
-    letter-spacing: 0.08em;
-    color: var(--white);
-  }
-
-  .scroll-hint {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    color: var(--muted);
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-  }
-  .scroll-line {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
-  }
-  @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(1); }
-    50% { opacity: 1; transform: scaleY(1.1); }
-  }
-
-  /* Big decorative number */
-  .hero-number {
-    position: absolute;
-    right: -2rem;
-    bottom: 5rem;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 22vw;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(91,196,245,0.08);
-    pointer-events: none;
-    line-height: 1;
-    user-select: none;
-  }
-
-  /* DIVIDER */
-  .divider {
-    height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    opacity: 0.3;
-    margin: 0 2rem;
-  }
-
-  /* SECTION BASE */
-  section {
-    padding: 7rem 2rem;
-    position: relative;
-    max-width: 1400px;
-    margin: 0 auto;
-  }
-
-  .section-label {
-    font-size: 0.68rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-  .section-label::after {
-    content: '';
-    flex: 1;
-    max-width: 60px;
-    height: 1px;
-    background: var(--gold);
-    opacity: 0.5;
-  }
-
-  .section-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 7vw, 6rem);
-    line-height: 0.9;
-    color: var(--white);
-    margin-bottom: 1.5rem;
-  }
-
-  /* ABOUT */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: center;
-    margin-top: 4rem;
-  }
-
-  .about-text p {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: rgba(245,240,232,0.7);
-    margin-bottom: 1.2rem;
-  }
-
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-  }
-
-  .stat-card {
-    background: rgba(91,196,245,0.04);
-    border: 1px solid rgba(91,196,245,0.15);
-    padding: 2rem;
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .stat-card:hover {
-    background: rgba(91,196,245,0.08);
-    border-color: rgba(91,196,245,0.4);
-  }
-  .stat-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3.5rem;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .stat-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.4rem;
-  }
-
-  /* SCHEDULE */
-  .schedule-section { padding-top: 4rem; }
-
-  .timeline {
-    margin-top: 4rem;
-    position: relative;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 7.5rem;
-    top: 0; bottom: 0;
-    width: 1px;
-    background: linear-gradient(to bottom, var(--gold), rgba(212,168,67,0.1));
-    opacity: 0.3;
-  }
-
-  .timeline-item {
-    display: grid;
-    grid-template-columns: 7.5rem 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-    position: relative;
-  }
-
-  .timeline-time {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.05em;
-    color: var(--gold);
-    text-align: right;
-    padding-top: 0.2rem;
-    white-space: nowrap;
-  }
-
-  .timeline-dot {
-    position: absolute;
-    left: calc(7.5rem - 4px);
-    top: 0.35rem;
-    width: 9px; height: 9px;
-    background: var(--gold);
-    border-radius: 50%;
-    box-shadow: 0 0 12px rgba(212,168,67,0.5);
-  }
-
-  .timeline-content h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.04em;
-    color: var(--white);
-    margin-bottom: 0.3rem;
-  }
-  .timeline-content p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-  .timeline-tag {
-    display: inline-block;
-    margin-top: 0.6rem;
-    font-size: 0.6rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--rust);
-    border: 1px solid rgba(196,92,42,0.4);
-    padding: 0.2rem 0.6rem;
-  }
-
-  /* SPEAKERS */
-  .speakers-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2px;
-    margin-top: 4rem;
-  }
-
-  .speaker-card {
-    background: rgba(255,255,255,0.02);
-    border: 1px solid rgba(255,255,255,0.06);
-    padding: 2.5rem 2rem;
-    position: relative;
-    overflow: hidden;
-    transition: border-color 0.4s, background 0.4s;
-    cursor: none;
-  }
-  .speaker-card:hover {
-    border-color: rgba(91,196,245,0.3);
-    background: rgba(91,196,245,0.04);
-  }
-  .speaker-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 2px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-  .speaker-card:hover::before { opacity: 1; }
-
-  .speaker-number {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 5rem;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(91,196,245,0.1);
-    line-height: 1;
-    margin-bottom: 1.5rem;
-    transition: -webkit-text-stroke-color 0.4s;
-  }
-  .speaker-card:hover .speaker-number {
-    -webkit-text-stroke-color: rgba(91,196,245,0.3);
-  }
-
-  .speaker-role {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    margin-bottom: 0.4rem;
-  }
-  .speaker-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.8rem;
-    letter-spacing: 0.03em;
-    color: var(--white);
-    margin-bottom: 0.8rem;
-  }
-  .speaker-desc {
-    font-size: 0.82rem;
-    color: var(--muted);
-    line-height: 1.6;
-  }
-
-  /* PRIZES */
-  .prizes-section {
-    background: linear-gradient(135deg, rgba(91,196,245,0.04) 0%, transparent 60%);
-    border: 1px solid rgba(91,196,245,0.12);
-    border-radius: 0;
-    padding: 5rem;
-    margin: 0 -2rem;
-  }
-
-  .prizes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
-    margin-top: 4rem;
-  }
-
-  .prize-card {
-    text-align: center;
-    padding: 3rem 2rem;
-    border: 1px solid rgba(91,196,245,0.12);
-    position: relative;
-    transition: transform 0.3s, border-color 0.3s;
-  }
-  .prize-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(91,196,245,0.4);
-  }
-
-  .prize-rank {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1rem;
-    letter-spacing: 0.2em;
-    color: var(--muted);
-    margin-bottom: 0.8rem;
-  }
-  .prize-amount {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4rem;
-    color: var(--gold);
-    line-height: 1;
-  }
-  .prize-card:first-child .prize-amount { font-size: 5rem; color: var(--gold-light); }
-  .prize-label {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 0.8rem;
-  }
-  .prize-trophy {
-    font-size: 2rem;
-    margin-bottom: 1rem;
-    display: block;
-  }
-
-  /* JUDGES */
-  .judges-section { text-align: center; }
-  .judges-mystery {
-    margin-top: 4rem;
-    padding: 5rem 3rem;
-    border: 1px dashed rgba(212,168,67,0.25);
-    position: relative;
-    overflow: hidden;
-  }
-  .judges-mystery::before {
-    content: '?';
-    position: absolute;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 30vw;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(91,196,245,0.05);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    user-select: none;
-  }
-  .judges-mystery h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 5vw, 4rem);
-    color: var(--white);
-    margin-bottom: 1rem;
-    position: relative;
-    z-index: 2;
-  }
-  .judges-mystery p {
-    color: var(--muted);
-    font-size: 1rem;
-    max-width: 500px;
-    margin: 0 auto;
-    line-height: 1.7;
-    position: relative;
-    z-index: 2;
-  }
-  .mystery-badges {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 2rem;
-    flex-wrap: wrap;
-    position: relative;
-    z-index: 2;
-  }
-  .mystery-badge {
-    border: 1px solid rgba(91,196,245,0.3);
-    padding: 0.5rem 1.2rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gold);
-    background: rgba(91,196,245,0.04);
-  }
-
-  /* VENUE */
-  .venue-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 5rem;
-    align-items: start;
-    margin-top: 4rem;
-  }
-  .venue-info h3 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2rem;
-    color: var(--white);
-    margin-bottom: 0.5rem;
-  }
-  .venue-detail {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
-    font-size: 0.9rem;
-    color: var(--muted);
-  }
-  .venue-detail .icon { font-size: 1.1rem; }
-  .venue-detail strong { color: var(--white); font-weight: 400; }
-
-  .venue-map-placeholder {
-    background: rgba(91,196,245,0.04);
-    border: 1px solid rgba(91,196,245,0.15);
-    aspect-ratio: 4/3;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    color: var(--muted);
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-  }
-  .venue-map-placeholder .map-icon { font-size: 3rem; opacity: 0.4; }
-
-  .schools {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-  .school-badge {
-    padding: 0.6rem 1.2rem;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.08);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--cream);
-    transition: border-color 0.3s;
-  }
-  .school-badge:hover { border-color: var(--gold); }
-
-  /* REGISTER */
-  .register-section {
-    text-align: center;
-    padding: 8rem 2rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .register-section::before {
-    content: 'DREAM';
-    position: absolute;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 40vw;
-    color: transparent;
-    -webkit-text-stroke: 1px rgba(91,196,245,0.04);
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    user-select: none;
-    white-space: nowrap;
-  }
-  .register-section .section-heading { font-size: clamp(2.5rem, 8vw, 7rem); }
-  .register-section p {
-    color: var(--muted);
-    font-size: 1rem;
-    max-width: 460px;
-    margin: 1.5rem auto 3rem;
-    line-height: 1.7;
-  }
-
-  /* FOOTER */
-  footer {
-    border-top: 1px solid rgba(255,255,255,0.06);
-    padding: 3rem 2rem;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.2rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-  }
-  .footer-copy {
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-  }
-
-  /* Animations */
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .hero-eyebrow { animation: fadeUp 0.8s ease 0.2s both; }
-  .hero-title { animation: fadeUp 0.8s ease 0.35s both; }
-  .hero-subtitle { animation: fadeUp 0.8s ease 0.5s both; }
-  .hero-cta-group { animation: fadeUp 0.8s ease 0.65s both; }
-
-  /* Responsive */
-  @media (max-width: 900px) {
-    .about-grid, .venue-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .speakers-grid { grid-template-columns: 1fr 1fr; }
-    .prizes-grid { grid-template-columns: 1fr; }
-    .prizes-section { padding: 3rem 1.5rem; margin: 0 -1rem; }
-    .timeline::before { left: 5.5rem; }
-    .timeline-item { grid-template-columns: 5.5rem 1fr; gap: 2rem; }
-    .timeline-dot { left: calc(5.5rem - 4px); }
-    nav { flex-direction: column; gap: 1rem; }
-    footer { flex-direction: column; gap: 1rem; text-align: center; }
-  }
-
-  @media (max-width: 600px) {
-    .speakers-grid { grid-template-columns: 1fr; }
-    section { padding: 4rem 1rem; }
-  }
-</style>
-</head>
-<body>
-
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="cursorRing"></div>
-
-<!-- HERO -->
-<header class="hero">
-  <nav>
-    <div class="nav-logo">Dream Convention</div>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#schedule">Schedule</a></li>
-      <li><a href="#speakers">Speakers</a></li>
-      <li><a href="#prizes">Prizes</a></li>
-      <li><a href="#venue">Venue</a></li>
-      <li><a href="#register">Register</a></li>
-    </ul>
-  </nav>
-
-  <div class="hero-content">
-    <div class="hero-eyebrow">University Pitch Competition · 2025</div>
-    <h1 class="hero-title">
-      Dream<span>Convention</span>
-    </h1>
-    <p class="hero-subtitle">Four CEOs. Two universities. One stage. Pitch your vision to the founders who built their dreams from nothing.</p>
-    <div class="hero-cta-group">
-      <a href="#register" class="btn-primary">Register Now</a>
-      <a href="#schedule" class="btn-ghost">View Schedule</a>
-    </div>
-  </div>
-
-  <div class="hero-bottom">
-    <div style="display:flex;gap:1rem;">
-      <div class="hero-date-card">
-        <div class="label">Date</div>
-        <div class="value">Friday, May 1</div>
-      </div>
-      <div class="hero-date-card">
-        <div class="label">Time</div>
-        <div class="value">4:00 – 9:00 PM</div>
-      </div>
-      <div class="hero-date-card">
-        <div class="label">Location</div>
-        <div class="value">Woulfe Alumni Hall</div>
-      </div>
-    </div>
-    <div class="scroll-hint">
-      <div class="scroll-line"></div>
-      Scroll
-    </div>
-  </div>
-
-  <div class="hero-number">25</div>
-</header>
-
-<div class="divider"></div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="section-label">What is Dream Convention</div>
-  <h2 class="section-heading">Where<br>Dreams<br>Get Built</h2>
-
-  <div class="about-grid">
-    <div class="about-text">
-      <p>Dream Convention is a one-night pitch competition that brings together the brightest entrepreneurial minds from the University of St. Thomas and the University of Minnesota.</p>
-      <p>Hear directly from four CEOs who built something from nothing. Their stories, their failures, their breakthroughs. Then take the stage and pitch your own.</p>
-      <p>Real judges. Real prize money. A real shot at turning your idea into something more.</p>
-      <div class="schools">
-        <div class="school-badge">University of St. Thomas</div>
-        <div class="school-badge">University of Minnesota</div>
-      </div>
-    </div>
-    <div class="about-stats">
-      <div class="stat-card">
-        <div class="stat-number">4</div>
-        <div class="stat-label">CEO Speakers</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">2</div>
-        <div class="stat-label">Universities</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">5</div>
-        <div class="stat-label">Hours of Programming</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-number">$$$</div>
-        <div class="stat-label">In Prize Money</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SCHEDULE -->
-<section id="schedule" class="schedule-section">
-  <div class="section-label">May 1st, 2025</div>
-  <h2 class="section-heading">The Night's<br>Programme</h2>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <div class="timeline-time">4:00 PM</div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>Doors Open &amp; Welcome</h3>
-        <p>Check in, grab some food, and connect with students from both universities before the evening begins.</p>
-        <span class="timeline-tag">Networking + Food</span>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-time">5:00 PM</div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>CEO Keynote Sessions</h3>
-        <p>Four CEOs take the stage — back to back — sharing raw, unfiltered stories of building their companies. What worked. What didn't. What they wish they knew.</p>
-        <span class="timeline-tag">Keynote Speakers</span>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-time">6:30 PM</div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>Student Pitch Competition</h3>
-        <p>Teams take the stage to pitch their ideas to our panel of surprise founders. 5 minutes to pitch. 3 minutes for Q&A. No mercy — just honest feedback.</p>
-        <span class="timeline-tag">Main Event</span>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-time">8:00 PM</div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>Judges Deliberation &amp; Networking</h3>
-        <p>While the judges make their decision, mingle with speakers, founders, and fellow students over food and drinks.</p>
-        <span class="timeline-tag">Networking + Food</span>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-time">8:30 PM</div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>Award Ceremony</h3>
-        <p>The moment you've been working toward. Prize money awarded. Dreams recognized.</p>
-        <span class="timeline-tag">Awards</span>
-      </div>
-    </div>
-    <div class="timeline-item">
-      <div class="timeline-time">9:00 PM</div>
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>End of Evening</h3>
-        <p>The night wraps up — but the connections you made here are just beginning.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- SPEAKERS -->
-<section id="speakers">
-  <div class="section-label">Hear From The Best</div>
-  <h2 class="section-heading">CEO<br>Speakers</h2>
-
-  <div class="speakers-grid">
-    <div class="speaker-card">
-      <div class="speaker-number">01</div>
-      <div class="speaker-role">CEO · Speaker</div>
-      <div class="speaker-name">To Be Announced</div>
-      <div class="speaker-desc">A visionary leader with a proven track record of building companies that last. Their story will challenge how you think about risk.</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-number">02</div>
-      <div class="speaker-role">CEO · Speaker</div>
-      <div class="speaker-name">To Be Announced</div>
-      <div class="speaker-desc">From first-time founder to industry disruptor. A raw, honest look at what it takes to build in the hardest markets.</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-number">03</div>
-      <div class="speaker-role">CEO · Speaker</div>
-      <div class="speaker-name">To Be Announced</div>
-      <div class="speaker-desc">They've scaled teams, lost sleep, and come out the other side. Their lessons on leadership are ones you won't find in any textbook.</div>
-    </div>
-    <div class="speaker-card">
-      <div class="speaker-number">04</div>
-      <div class="speaker-role">CEO · Speaker</div>
-      <div class="speaker-name">To Be Announced</div>
-      <div class="speaker-desc">An entrepreneur who reinvented an entire industry. Their perspective on customer obsession will reshape how you build.</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- PRIZES -->
-<div style="max-width:1400px;margin:0 auto;padding:0 2rem;">
-<section id="prizes" class="prizes-section">
-  <div class="section-label">What You're Competing For</div>
-  <h2 class="section-heading">Prize<br>Money</h2>
-
-  <div class="prizes-grid">
-    <div class="prize-card">
-      <span class="prize-trophy">🏆</span>
-      <div class="prize-rank">First Place</div>
-      <div class="prize-amount">TBD</div>
-      <div class="prize-label">Grand Prize Winner</div>
-    </div>
-    <div class="prize-card">
-      <span class="prize-trophy">🥈</span>
-      <div class="prize-rank">Second Place</div>
-      <div class="prize-amount">TBD</div>
-      <div class="prize-label">Runner-Up</div>
-    </div>
-    <div class="prize-card">
-      <span class="prize-trophy">🥉</span>
-      <div class="prize-rank">Third Place</div>
-      <div class="prize-amount">TBD</div>
-      <div class="prize-label">Third Place Finish</div>
-    </div>
-  </div>
-</section>
-</div>
-
-<div class="divider"></div>
-
-<!-- JUDGES -->
-<section id="judges" class="judges-section">
-  <div class="section-label" style="justify-content:center;">The Jury</div>
-  <h2 class="section-heading">Who's<br>Judging You</h2>
-
-  <div class="judges-mystery">
-    <h3>The Founders Are a Surprise</h3>
-    <p>Our panel of judges are real founders — people who have built, scaled, and sold companies. Their identities will be revealed the night of the event.</p>
-    <div class="mystery-badges">
-      <div class="mystery-badge">Serial Founders</div>
-      <div class="mystery-badge">Industry Leaders</div>
-      <div class="mystery-badge">Investors</div>
-      <div class="mystery-badge">Revealed May 1st</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- VENUE -->
-<section id="venue">
-  <div class="section-label">Where It Happens</div>
-  <h2 class="section-heading">The<br>Venue</h2>
-
-  <div class="venue-grid">
-    <div class="venue-info">
-      <h3>Woulfe Alumni Hall</h3>
-      <p style="color:var(--muted);font-size:0.9rem;margin-bottom:2rem;line-height:1.6;">University of St. Thomas, St. Paul, Minnesota</p>
-
-      <div class="venue-detail">
-        <span class="icon">📅</span>
-        <div><strong>Friday, May 1st, 2025</strong></div>
-      </div>
-      <div class="venue-detail">
-        <span class="icon">⏰</span>
-        <div><strong>4:00 PM – 9:00 PM</strong></div>
-      </div>
-      <div class="venue-detail">
-        <span class="icon">📍</span>
-        <div><strong>Woulfe Alumni Hall, University of St. Thomas</strong><br>St. Paul, Minnesota</div>
-      </div>
-      <div class="venue-detail">
-        <span class="icon">🍽</span>
-        <div><strong>Food &amp; Drinks Provided</strong> — Complimentary for all attendees</div>
-      </div>
-      <div class="venue-detail">
-        <span class="icon">🎓</span>
-        <div>Open to students from <strong>University of St. Thomas</strong> and <strong>University of Minnesota</strong></div>
-      </div>
-    </div>
-
-    <div class="venue-map-placeholder">
-      <div class="map-icon">📍</div>
-      <div>Woulfe Alumni Hall</div>
-      <div style="font-size:0.65rem;opacity:0.6;">University of St. Thomas · St. Paul, MN</div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- REGISTER -->
-<section id="register" class="register-section">
-  <div class="section-label" style="justify-content:center;">Limited Spots Available</div>
-  <h2 class="section-heading">Ready to<br>Dream Bigger?</h2>
-  <p>This is your chance to pitch in front of real founders, learn from four CEOs, and compete for serious prize money. Don't watch from the sidelines.</p>
-  <a href="#" class="btn-primary" style="font-size:0.85rem;padding:1.2rem 3rem;">Register Your Team</a>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-logo">Dream Convention 2025</div>
-  <div class="footer-copy">Woulfe Alumni Hall · University of St. Thomas · May 1, 2025 · 4–9PM</div>
-</footer>
-
-<script>
-  // Custom cursor
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx = 0, my = 0, rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    mx = e.clientX; my = e.clientY;
-    cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
-  });
-
-  function animateRing() {
-    rx += (mx - rx - 18) * 0.12;
-    ry += (my - ry - 18) * 0.12;
-    ring.style.transform = `translate(${rx}px, ${ry}px)`;
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  // Hover effect on interactive elements
-  const interactables = document.querySelectorAll('a, button, .speaker-card, .stat-card, .prize-card');
-  interactables.forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      cursor.style.transform += ' scale(1.8)';
-      ring.style.width = '60px';
-      ring.style.height = '60px';
-    });
-    el.addEventListener('mouseleave', () => {
-      ring.style.width = '36px';
-      ring.style.height = '36px';
-    });
-  });
-
-  // Scroll reveal
-  const reveals = document.querySelectorAll('section, .timeline-item, .speaker-card, .stat-card, .prize-card');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dream Convention 2025</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #060a10;
+        --white: #eaf4ff;
+        --gold: #5bc4f5;
+        --gold-light: #93d9ff;
+        --rust: #2a7fc4;
+        --cream: #d0eaf8;
+        --muted: #6a8fa8;
       }
-    });
-  }, { threshold: 0.08 });
 
-  reveals.forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.transition = `opacity 0.7s ease ${i * 0.04}s, transform 0.7s ease ${i * 0.04}s`;
-    observer.observe(el);
-  });
-</script>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-</body>
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 300;
+        overflow-x: hidden;
+        cursor: none;
+      }
+
+      /* Custom cursor */
+      .cursor {
+        width: 10px;
+        height: 10px;
+        background: var(--gold);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9999;
+        transition: transform 0.1s ease;
+        mix-blend-mode: difference;
+      }
+      .cursor-ring {
+        width: 36px;
+        height: 36px;
+        border: 1px solid var(--gold);
+        border-radius: 50%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        pointer-events: none;
+        z-index: 9998;
+        transition:
+          transform 0.25s ease,
+          width 0.2s,
+          height 0.2s;
+        mix-blend-mode: difference;
+      }
+
+      /* sophia was here */
+      .hero {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        position: relative;
+        overflow: hidden;
+        padding: 2rem;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse 60% 60% at 80% 20%,
+            rgba(91, 196, 245, 0.12) 0%,
+            transparent 60%
+          ),
+          radial-gradient(
+            ellipse 40% 50% at 10% 80%,
+            rgba(42, 127, 196, 0.1) 0%,
+            transparent 55%
+          );
+        pointer-events: none;
+      }
+
+      /* Grain overlay */
+      .hero::after {
+        content: "";
+        position: fixed;
+        inset: -50%;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+        opacity: 0.03;
+        pointer-events: none;
+        z-index: 100;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        position: relative;
+        z-index: 10;
+      }
+
+      .nav-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.4rem;
+        letter-spacing: 0.2em;
+        color: var(--gold);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2.5rem;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: var(--muted);
+        text-decoration: none;
+        font-size: 0.78rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        transition: color 0.3s;
+      }
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+
+      .hero-content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 4rem 0 2rem;
+        position: relative;
+        z-index: 5;
+      }
+
+      .hero-eyebrow {
+        font-size: 0.72rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .hero-eyebrow::before {
+        content: "";
+        display: inline-block;
+        width: 2.5rem;
+        height: 1px;
+        background: var(--gold);
+      }
+
+      .hero-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(6rem, 18vw, 16rem);
+        line-height: 0.88;
+        letter-spacing: -0.01em;
+        color: var(--white);
+        position: relative;
+      }
+
+      .hero-title span {
+        display: block;
+        -webkit-text-stroke: 1px var(--gold);
+        color: transparent;
+      }
+
+      .hero-subtitle {
+        font-family: "Playfair Display", serif;
+        font-style: italic;
+        font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+        color: var(--muted);
+        margin-top: 1.5rem;
+        max-width: 500px;
+        line-height: 1.5;
+      }
+
+      .hero-cta-group {
+        display: flex;
+        gap: 1rem;
+        margin-top: 3rem;
+        align-items: center;
+      }
+
+      .btn-primary {
+        background: var(--gold);
+        color: var(--black);
+        padding: 1rem 2.5rem;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        border: none;
+        cursor: none;
+        text-decoration: none;
+        display: inline-block;
+        transition:
+          background 0.3s,
+          transform 0.2s;
+        clip-path: polygon(
+          0 0,
+          calc(100% - 12px) 0,
+          100% 12px,
+          100% 100%,
+          12px 100%,
+          0 calc(100% - 12px)
+        );
+      }
+      .btn-primary:hover {
+        background: var(--gold-light);
+        transform: translateY(-2px);
+      }
+
+      .btn-ghost {
+        color: var(--white);
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        text-decoration: none;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 2px;
+        transition:
+          border-color 0.3s,
+          color 0.3s;
+      }
+      .btn-ghost:hover {
+        color: var(--gold);
+        border-color: var(--gold);
+      }
+
+      .hero-bottom {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        padding-bottom: 1.5rem;
+        position: relative;
+        z-index: 5;
+      }
+
+      .hero-date-card {
+        border: 1px solid rgba(91, 196, 245, 0.3);
+        padding: 1rem 1.5rem;
+        background: rgba(91, 196, 245, 0.04);
+        backdrop-filter: blur(8px);
+      }
+      .hero-date-card .label {
+        font-size: 0.65rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.3rem;
+      }
+      .hero-date-card .value {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+        color: var(--white);
+      }
+
+      .scroll-hint {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--muted);
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .scroll-line {
+        width: 1px;
+        height: 40px;
+        background: linear-gradient(to bottom, var(--gold), transparent);
+        animation: scrollPulse 2s ease-in-out infinite;
+      }
+      @keyframes scrollPulse {
+        0%,
+        100% {
+          opacity: 0.3;
+          transform: scaleY(1);
+        }
+        50% {
+          opacity: 1;
+          transform: scaleY(1.1);
+        }
+      }
+
+      /* Big decorative number */
+      .hero-number {
+        position: absolute;
+        right: -2rem;
+        bottom: 5rem;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 22vw;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(91, 196, 245, 0.08);
+        pointer-events: none;
+        line-height: 1;
+        user-select: none;
+      }
+
+      /* DIVIDER */
+      .divider {
+        height: 1px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0.3;
+        margin: 0 2rem;
+      }
+
+      /* SECTION BASE */
+      section {
+        padding: 7rem 2rem;
+        position: relative;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-size: 0.68rem;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .section-label::after {
+        content: "";
+        flex: 1;
+        max-width: 60px;
+        height: 1px;
+        background: var(--gold);
+        opacity: 0.5;
+      }
+
+      .section-heading {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(3rem, 7vw, 6rem);
+        line-height: 0.9;
+        color: var(--white);
+        margin-bottom: 1.5rem;
+      }
+
+      /* ABOUT */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: center;
+        margin-top: 4rem;
+      }
+
+      .about-text p {
+        font-size: 1.05rem;
+        line-height: 1.8;
+        color: rgba(245, 240, 232, 0.7);
+        margin-bottom: 1.2rem;
+      }
+
+      .about-stats {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2px;
+      }
+
+      .stat-card {
+        background: rgba(91, 196, 245, 0.04);
+        border: 1px solid rgba(91, 196, 245, 0.15);
+        padding: 2rem;
+        transition:
+          background 0.3s,
+          border-color 0.3s;
+      }
+      .stat-card:hover {
+        background: rgba(91, 196, 245, 0.08);
+        border-color: rgba(91, 196, 245, 0.4);
+      }
+      .stat-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 3.5rem;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.4rem;
+      }
+
+      /* SCHEDULE */
+      .schedule-section {
+        padding-top: 4rem;
+      }
+
+      .timeline {
+        margin-top: 4rem;
+        position: relative;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 7.5rem;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: linear-gradient(
+          to bottom,
+          var(--gold),
+          rgba(212, 168, 67, 0.1)
+        );
+        opacity: 0.3;
+      }
+
+      .timeline-item {
+        display: grid;
+        grid-template-columns: 7.5rem 1fr;
+        gap: 3rem;
+        margin-bottom: 3rem;
+        position: relative;
+      }
+
+      .timeline-time {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.05em;
+        color: var(--gold);
+        text-align: right;
+        padding-top: 0.2rem;
+        white-space: nowrap;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: calc(7.5rem - 4px);
+        top: 0.35rem;
+        width: 9px;
+        height: 9px;
+        background: var(--gold);
+        border-radius: 50%;
+        box-shadow: 0 0 12px rgba(212, 168, 67, 0.5);
+      }
+
+      .timeline-content h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.6rem;
+        letter-spacing: 0.04em;
+        color: var(--white);
+        margin-bottom: 0.3rem;
+      }
+      .timeline-content p {
+        font-size: 0.9rem;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .timeline-tag {
+        display: inline-block;
+        margin-top: 0.6rem;
+        font-size: 0.6rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--rust);
+        border: 1px solid rgba(196, 92, 42, 0.4);
+        padding: 0.2rem 0.6rem;
+      }
+
+      /* SPEAKERS */
+      .speakers-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2px;
+        margin-top: 4rem;
+      }
+
+      .speaker-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 2.5rem 2rem;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.4s,
+          background 0.4s;
+        cursor: none;
+      }
+      .speaker-card:hover {
+        border-color: rgba(91, 196, 245, 0.3);
+        background: rgba(91, 196, 245, 0.04);
+      }
+      .speaker-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(
+          to right,
+          transparent,
+          var(--gold),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .speaker-card:hover::before {
+        opacity: 1;
+      }
+
+      .speaker-number {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 5rem;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(91, 196, 245, 0.1);
+        line-height: 1;
+        margin-bottom: 1.5rem;
+        transition: -webkit-text-stroke-color 0.4s;
+      }
+      .speaker-card:hover .speaker-number {
+        -webkit-text-stroke-color: rgba(91, 196, 245, 0.3);
+      }
+
+      .speaker-role {
+        font-size: 0.65rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.4rem;
+      }
+      .speaker-name {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        letter-spacing: 0.03em;
+        color: var(--white);
+        margin-bottom: 0.8rem;
+      }
+      .speaker-desc {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      /* PRIZES */
+      .prizes-section {
+        background: linear-gradient(
+          135deg,
+          rgba(91, 196, 245, 0.04) 0%,
+          transparent 60%
+        );
+        border: 1px solid rgba(91, 196, 245, 0.12);
+        border-radius: 0;
+        padding: 5rem;
+        margin: 0 -2rem;
+      }
+
+      .prizes-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 3rem;
+        margin-top: 4rem;
+      }
+
+      .prize-card {
+        text-align: center;
+        padding: 3rem 2rem;
+        border: 1px solid rgba(91, 196, 245, 0.12);
+        position: relative;
+        transition:
+          transform 0.3s,
+          border-color 0.3s;
+      }
+      .prize-card:hover {
+        transform: translateY(-6px);
+        border-color: rgba(91, 196, 245, 0.4);
+      }
+
+      .prize-rank {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1rem;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        margin-bottom: 0.8rem;
+      }
+      .prize-amount {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        color: var(--gold);
+        line-height: 1;
+      }
+      .prize-card:first-child .prize-amount {
+        font-size: 5rem;
+        color: var(--gold-light);
+      }
+      .prize-label {
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.8rem;
+      }
+      .prize-trophy {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      /* JUDGES */
+      .judges-section {
+        text-align: center;
+      }
+      .judges-mystery {
+        margin-top: 4rem;
+        padding: 5rem 3rem;
+        border: 1px dashed rgba(212, 168, 67, 0.25);
+        position: relative;
+        overflow: hidden;
+      }
+      .judges-mystery::before {
+        content: "?";
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 30vw;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(91, 196, 245, 0.05);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        user-select: none;
+      }
+      .judges-mystery h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: clamp(2rem, 5vw, 4rem);
+        color: var(--white);
+        margin-bottom: 1rem;
+        position: relative;
+        z-index: 2;
+      }
+      .judges-mystery p {
+        color: var(--muted);
+        font-size: 1rem;
+        max-width: 500px;
+        margin: 0 auto;
+        line-height: 1.7;
+        position: relative;
+        z-index: 2;
+      }
+      .mystery-badges {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+        position: relative;
+        z-index: 2;
+      }
+      .mystery-badge {
+        border: 1px solid rgba(91, 196, 245, 0.3);
+        padding: 0.5rem 1.2rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--gold);
+        background: rgba(91, 196, 245, 0.04);
+      }
+
+      /* VENUE */
+      .venue-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5rem;
+        align-items: start;
+        margin-top: 4rem;
+      }
+      .venue-info h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        color: var(--white);
+        margin-bottom: 0.5rem;
+      }
+      .venue-detail {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        font-size: 0.9rem;
+        color: var(--muted);
+      }
+      .venue-detail .icon {
+        font-size: 1.1rem;
+      }
+      .venue-detail strong {
+        color: var(--white);
+        font-weight: 400;
+      }
+
+      .venue-map-placeholder {
+        background: rgba(91, 196, 245, 0.04);
+        border: 1px solid rgba(91, 196, 245, 0.15);
+        aspect-ratio: 4/3;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        color: var(--muted);
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      .venue-map-placeholder .map-icon {
+        font-size: 3rem;
+        opacity: 0.4;
+      }
+
+      .schools {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+      }
+      .school-badge {
+        padding: 0.6rem 1.2rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 0.72rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--cream);
+        transition: border-color 0.3s;
+      }
+      .school-badge:hover {
+        border-color: var(--gold);
+      }
+
+      /* REGISTER */
+      .register-section {
+        text-align: center;
+        padding: 8rem 2rem;
+        position: relative;
+        overflow: hidden;
+      }
+      .register-section::before {
+        content: "DREAM";
+        position: absolute;
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 40vw;
+        color: transparent;
+        -webkit-text-stroke: 1px rgba(91, 196, 245, 0.04);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+        user-select: none;
+        white-space: nowrap;
+      }
+      .register-section .section-heading {
+        font-size: clamp(2.5rem, 8vw, 7rem);
+      }
+      .register-section p {
+        color: var(--muted);
+        font-size: 1rem;
+        max-width: 460px;
+        margin: 1.5rem auto 3rem;
+        line-height: 1.7;
+      }
+
+      /* FOOTER */
+      footer {
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 3rem 2rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .footer-logo {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.2rem;
+        letter-spacing: 0.2em;
+        color: var(--gold);
+      }
+      .footer-copy {
+        font-size: 0.72rem;
+        color: var(--muted);
+        letter-spacing: 0.08em;
+      }
+
+      /* Animations */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .hero-eyebrow {
+        animation: fadeUp 0.8s ease 0.2s both;
+      }
+      .hero-title {
+        animation: fadeUp 0.8s ease 0.35s both;
+      }
+      .hero-subtitle {
+        animation: fadeUp 0.8s ease 0.5s both;
+      }
+      .hero-cta-group {
+        animation: fadeUp 0.8s ease 0.65s both;
+      }
+
+      /* Responsive */
+      @media (max-width: 900px) {
+        .about-grid,
+        .venue-grid {
+          grid-template-columns: 1fr;
+          gap: 3rem;
+        }
+        .speakers-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .prizes-grid {
+          grid-template-columns: 1fr;
+        }
+        .prizes-section {
+          padding: 3rem 1.5rem;
+          margin: 0 -1rem;
+        }
+        .timeline::before {
+          left: 5.5rem;
+        }
+        .timeline-item {
+          grid-template-columns: 5.5rem 1fr;
+          gap: 2rem;
+        }
+        .timeline-dot {
+          left: calc(5.5rem - 4px);
+        }
+        nav {
+          flex-direction: column;
+          gap: 1rem;
+        }
+        footer {
+          flex-direction: column;
+          gap: 1rem;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 600px) {
+        .speakers-grid {
+          grid-template-columns: 1fr;
+        }
+        section {
+          padding: 4rem 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <nav>
+        <div class="nav-logo">Dream Convention</div>
+        <ul class="nav-links">
+          <li><a href="#about">About</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#prizes">Prizes</a></li>
+          <li><a href="#venue">Venue</a></li>
+          <li><a href="#register">Register</a></li>
+        </ul>
+      </nav>
+
+      <div class="hero-content">
+        <div class="hero-eyebrow">University Pitch Competition · 2025</div>
+        <h1 class="hero-title">Dream<span>Convention</span></h1>
+        <p class="hero-subtitle">
+          Four CEOs. Two universities. One stage. Pitch your vision to the
+          founders who built their dreams from nothing.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#register" class="btn-primary">Register Now</a>
+          <a href="#schedule" class="btn-ghost">View Schedule</a>
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <div style="display: flex; gap: 1rem">
+          <div class="hero-date-card">
+            <div class="label">Date</div>
+            <div class="value">Friday, May 1</div>
+          </div>
+          <div class="hero-date-card">
+            <div class="label">Time</div>
+            <div class="value">4:00 – 9:00 PM</div>
+          </div>
+          <div class="hero-date-card">
+            <div class="label">Location</div>
+            <div class="value">Woulfe Alumni Hall</div>
+          </div>
+        </div>
+        <div class="scroll-hint">
+          <div class="scroll-line"></div>
+          Scroll
+        </div>
+      </div>
+
+      <div class="hero-number">25</div>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-label">What is Dream Convention</div>
+      <h2 class="section-heading">Where<br />Dreams<br />Get Built</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Dream Convention is a one-night pitch competition that brings
+            together the brightest entrepreneurial minds from the University of
+            St. Thomas and the University of Minnesota.
+          </p>
+          <p>
+            Hear directly from four CEOs who built something from nothing. Their
+            stories, their failures, their breakthroughs. Then take the stage
+            and pitch your own.
+          </p>
+          <p>
+            Real judges. Real prize money. A real shot at turning your idea into
+            something more.
+          </p>
+          <div class="schools">
+            <div class="school-badge">University of St. Thomas</div>
+            <div class="school-badge">University of Minnesota</div>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">CEO Speakers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Universities</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Hours of Programming</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$$$</div>
+            <div class="stat-label">In Prize Money</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" class="schedule-section">
+      <div class="section-label">May 1st, 2025</div>
+      <h2 class="section-heading">The Night's<br />Programme</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">4:00 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Doors Open &amp; Welcome</h3>
+            <p>
+              Check in, grab some food, and connect with students from both
+              universities before the evening begins.
+            </p>
+            <span class="timeline-tag">Networking + Food</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">5:00 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>CEO Keynote Sessions</h3>
+            <p>
+              Four CEOs take the stage — back to back — sharing raw, unfiltered
+              stories of building their companies. What worked. What didn't.
+              What they wish they knew.
+            </p>
+            <span class="timeline-tag">Keynote Speakers</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">6:30 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Student Pitch Competition</h3>
+            <p>
+              Teams take the stage to pitch their ideas to our panel of surprise
+              founders. 5 minutes to pitch. 3 minutes for Q&A. No mercy — just
+              honest feedback.
+            </p>
+            <span class="timeline-tag">Main Event</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">8:00 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Judges Deliberation &amp; Networking</h3>
+            <p>
+              While the judges make their decision, mingle with speakers,
+              founders, and fellow students over food and drinks.
+            </p>
+            <span class="timeline-tag">Networking + Food</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">8:30 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Award Ceremony</h3>
+            <p>
+              The moment you've been working toward. Prize money awarded. Dreams
+              recognized.
+            </p>
+            <span class="timeline-tag">Awards</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">9:00 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>End of Evening</h3>
+            <p>
+              The night wraps up — but the connections you made here are just
+              beginning.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SPEAKERS -->
+    <section id="speakers">
+      <div class="section-label">Hear From The Best</div>
+      <h2 class="section-heading">CEO<br />Speakers</h2>
+
+      <div class="speakers-grid">
+        <div class="speaker-card">
+          <div class="speaker-number">01</div>
+          <div class="speaker-role">CEO · Speaker</div>
+          <div class="speaker-name">To Be Announced</div>
+          <div class="speaker-desc">
+            A visionary leader with a proven track record of building companies
+            that last. Their story will challenge how you think about risk.
+          </div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-number">02</div>
+          <div class="speaker-role">CEO · Speaker</div>
+          <div class="speaker-name">To Be Announced</div>
+          <div class="speaker-desc">
+            From first-time founder to industry disruptor. A raw, honest look at
+            what it takes to build in the hardest markets.
+          </div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-number">03</div>
+          <div class="speaker-role">CEO · Speaker</div>
+          <div class="speaker-name">To Be Announced</div>
+          <div class="speaker-desc">
+            They've scaled teams, lost sleep, and come out the other side. Their
+            lessons on leadership are ones you won't find in any textbook.
+          </div>
+        </div>
+        <div class="speaker-card">
+          <div class="speaker-number">04</div>
+          <div class="speaker-role">CEO · Speaker</div>
+          <div class="speaker-name">To Be Announced</div>
+          <div class="speaker-desc">
+            An entrepreneur who reinvented an entire industry. Their perspective
+            on customer obsession will reshape how you build.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PRIZES -->
+    <div style="max-width: 1400px; margin: 0 auto; padding: 0 2rem">
+      <section id="prizes" class="prizes-section">
+        <div class="section-label">What You're Competing For</div>
+        <h2 class="section-heading">Prize<br />Money</h2>
+
+        <div class="prizes-grid">
+          <div class="prize-card">
+            <span class="prize-trophy">🏆</span>
+            <div class="prize-rank">First Place</div>
+            <div class="prize-amount">TBD</div>
+            <div class="prize-label">Grand Prize Winner</div>
+          </div>
+          <div class="prize-card">
+            <span class="prize-trophy">🥈</span>
+            <div class="prize-rank">Second Place</div>
+            <div class="prize-amount">TBD</div>
+            <div class="prize-label">Runner-Up</div>
+          </div>
+          <div class="prize-card">
+            <span class="prize-trophy">🥉</span>
+            <div class="prize-rank">Third Place</div>
+            <div class="prize-amount">TBD</div>
+            <div class="prize-label">Third Place Finish</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- JUDGES -->
+    <section id="judges" class="judges-section">
+      <div class="section-label" style="justify-content: center">The Jury</div>
+      <h2 class="section-heading">Who's<br />Judging You</h2>
+
+      <div class="judges-mystery">
+        <h3>The Founders Are a Surprise</h3>
+        <p>
+          Our panel of judges are real founders — people who have built, scaled,
+          and sold companies. Their identities will be revealed the night of the
+          event.
+        </p>
+        <div class="mystery-badges">
+          <div class="mystery-badge">Serial Founders</div>
+          <div class="mystery-badge">Industry Leaders</div>
+          <div class="mystery-badge">Investors</div>
+          <div class="mystery-badge">Revealed May 1st</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- VENUE -->
+    <section id="venue">
+      <div class="section-label">Where It Happens</div>
+      <h2 class="section-heading">The<br />Venue</h2>
+
+      <div class="venue-grid">
+        <div class="venue-info">
+          <h3>Woulfe Alumni Hall</h3>
+          <p
+            style="
+              color: var(--muted);
+              font-size: 0.9rem;
+              margin-bottom: 2rem;
+              line-height: 1.6;
+            "
+          >
+            University of St. Thomas, St. Paul, Minnesota
+          </p>
+
+          <div class="venue-detail">
+            <span class="icon">📅</span>
+            <div><strong>Friday, May 1st, 2025</strong></div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">⏰</span>
+            <div><strong>4:00 PM – 9:00 PM</strong></div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">📍</span>
+            <div>
+              <strong>Woulfe Alumni Hall, University of St. Thomas</strong
+              ><br />St. Paul, Minnesota
+            </div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">🍽</span>
+            <div>
+              <strong>Food &amp; Drinks Provided</strong> — Complimentary for
+              all attendees
+            </div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">🎓</span>
+            <div>
+              Open to students from
+              <strong>University of St. Thomas</strong> and
+              <strong>University of Minnesota</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="venue-map-placeholder">
+          <div class="map-icon">📍</div>
+          <div>Woulfe Alumni Hall</div>
+          <div style="font-size: 0.65rem; opacity: 0.6">
+            University of St. Thomas · St. Paul, MN
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- REGISTER -->
+    <section id="register" class="register-section">
+      <div class="section-label" style="justify-content: center">
+        Limited Spots Available
+      </div>
+      <h2 class="section-heading">Ready to<br />Dream Bigger?</h2>
+      <p>
+        This is your chance to pitch in front of real founders, learn from four
+        CEOs, and compete for serious prize money. Don't watch from the
+        sidelines.
+      </p>
+      <a
+        href="#"
+        class="btn-primary"
+        style="font-size: 0.85rem; padding: 1.2rem 3rem"
+        >Register Your Team</a
+      >
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">Dream Convention 2025</div>
+      <div class="footer-copy">
+        Woulfe Alumni Hall · University of St. Thomas · May 1, 2025 · 4–9PM
+      </div>
+    </footer>
+
+    <script>
+      // Custom cursor
+      const cursor = document.getElementById("cursor");
+      const ring = document.getElementById("cursorRing");
+      let mx = 0,
+        my = 0,
+        rx = 0,
+        ry = 0;
+
+      document.addEventListener("mousemove", (e) => {
+        mx = e.clientX;
+        my = e.clientY;
+        cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+      });
+
+      function animateRing() {
+        rx += (mx - rx - 18) * 0.12;
+        ry += (my - ry - 18) * 0.12;
+        ring.style.transform = `translate(${rx}px, ${ry}px)`;
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      // Hover effect on interactive elements
+      const interactables = document.querySelectorAll(
+        "a, button, .speaker-card, .stat-card, .prize-card",
+      );
+      interactables.forEach((el) => {
+        el.addEventListener("mouseenter", () => {
+          cursor.style.transform += " scale(1.8)";
+          ring.style.width = "60px";
+          ring.style.height = "60px";
+        });
+        el.addEventListener("mouseleave", () => {
+          ring.style.width = "36px";
+          ring.style.height = "36px";
+        });
+      });
+
+      // Scroll reveal
+      const reveals = document.querySelectorAll(
+        "section, .timeline-item, .speaker-card, .stat-card, .prize-card",
+      );
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        },
+        { threshold: 0.08 },
+      );
+
+      reveals.forEach((el, i) => {
+        el.style.opacity = "0";
+        el.style.transform = "translateY(24px)";
+        el.style.transition = `opacity 0.7s ease ${i * 0.04}s, transform 0.7s ease ${i * 0.04}s`;
+        observer.observe(el);
+      });
+    </script>
+  </body>
 </html>
