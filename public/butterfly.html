@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Butterfly Animation — Dev Sandbox</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --black: #060a10;
+        --white: #eaf4ff;
+        --gold: #5bc4f5;
+        --gold-light: #93d9ff;
+        --rust: #2a7fc4;
+        --cream: #d0eaf8;
+        --muted: #6a8fa8;
+      }
+
+      *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: var(--black);
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 300;
+        overflow: hidden;
+        height: 100vh;
+        cursor: none;
+      }
+
+      /* Dev label */
+      .dev-label {
+        position: fixed;
+        top: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 0.75rem;
+        letter-spacing: 0.3em;
+        color: var(--muted);
+        z-index: 100;
+        pointer-events: none;
+      }
+
+      /* Back link */
+      .back-link {
+        position: fixed;
+        top: 1.4rem;
+        left: 2rem;
+        font-size: 0.68rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--muted);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(106, 143, 168, 0.3);
+        padding-bottom: 2px;
+        z-index: 100;
+        transition: color 0.3s, border-color 0.3s;
+      }
+      .back-link:hover {
+        color: var(--gold);
+        border-color: var(--gold);
+      }
+
+      /* Controls panel */
+      .controls {
+        position: fixed;
+        top: 4rem;
+        right: 2rem;
+        z-index: 100;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        width: 220px;
+      }
+
+      .ctrl-group {
+        background: rgba(91, 196, 245, 0.04);
+        border: 1px solid rgba(91, 196, 245, 0.15);
+        padding: 1rem 1.2rem;
+      }
+
+      .ctrl-label {
+        font-size: 0.6rem;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 0.6rem;
+      }
+
+      .ctrl-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .ctrl-row:last-child {
+        margin-bottom: 0;
+      }
+
+      .ctrl-name {
+        font-size: 0.7rem;
+        color: var(--muted);
+        flex: 1;
+      }
+
+      input[type="range"] {
+        flex: 1.5;
+        -webkit-appearance: none;
+        height: 2px;
+        background: rgba(91, 196, 245, 0.2);
+        outline: none;
+        cursor: none;
+      }
+      input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--gold);
+        cursor: none;
+      }
+
+      .ctrl-val {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 0.9rem;
+        color: var(--white);
+        width: 2.5rem;
+        text-align: right;
+      }
+
+      .ctrl-toggle {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+      }
+
+      .toggle-btn {
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        border: 1px solid rgba(91, 196, 245, 0.2);
+        padding: 0.3rem 0.6rem;
+        background: none;
+        cursor: none;
+        transition: all 0.2s;
+      }
+      .toggle-btn.active {
+        color: var(--black);
+        background: var(--gold);
+        border-color: var(--gold);
+      }
+
+      /* Custom cursor */
+      .cursor {
+        width: 8px;
+        height: 8px;
+        background: var(--gold);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+      }
+      .cursor-ring {
+        width: 30px;
+        height: 30px;
+        border: 1px solid rgba(91, 196, 245, 0.6);
+        border-radius: 50%;
+        position: fixed;
+        pointer-events: none;
+        z-index: 9998;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+        transition: width 0.2s, height 0.2s;
+      }
+
+      canvas {
+        display: block;
+        width: 100vw;
+        height: 100vh;
+      }
+
+      /* Status bar */
+      .status {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 2rem;
+        font-size: 0.62rem;
+        letter-spacing: 0.15em;
+        color: var(--muted);
+        opacity: 0.5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <a href="index.html" class="back-link">← Main Site</a>
+    <div class="dev-label">Butterfly · Dev Sandbox</div>
+
+    <!-- Controls -->
+    <div class="controls">
+      <div class="ctrl-group">
+        <div class="ctrl-label">Wing Speed</div>
+        <div class="ctrl-row">
+          <span class="ctrl-name">Flap rate</span>
+          <input type="range" id="flapSpeed" min="1" max="10" step="0.1" value="4" />
+          <span class="ctrl-val" id="flapSpeedVal">4</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-name">Amplitude</span>
+          <input type="range" id="flapAmp" min="0.1" max="1" step="0.01" value="0.7" />
+          <span class="ctrl-val" id="flapAmpVal">0.7</span>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-label">Movement</div>
+        <div class="ctrl-row">
+          <span class="ctrl-name">Follow speed</span>
+          <input type="range" id="followSpeed" min="0.01" max="0.2" step="0.005" value="0.05" />
+          <span class="ctrl-val" id="followSpeedVal">0.05</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-name">Drift</span>
+          <input type="range" id="drift" min="0" max="3" step="0.1" value="1" />
+          <span class="ctrl-val" id="driftVal">1</span>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-label">Appearance</div>
+        <div class="ctrl-row">
+          <span class="ctrl-name">Size</span>
+          <input type="range" id="bfSize" min="30" max="200" step="1" value="80" />
+          <span class="ctrl-val" id="bfSizeVal">80</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-name">Glow</span>
+          <input type="range" id="glow" min="0" max="40" step="1" value="18" />
+          <span class="ctrl-val" id="glowVal">18</span>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-label">Mode</div>
+        <div class="ctrl-toggle">
+          <button class="toggle-btn active" id="modeFollow">Follow Mouse</button>
+          <button class="toggle-btn" id="modeFloat">Float Free</button>
+          <button class="toggle-btn" id="modeIdle">Idle</button>
+        </div>
+      </div>
+
+      <div class="ctrl-group">
+        <div class="ctrl-label">Trail</div>
+        <div class="ctrl-toggle">
+          <button class="toggle-btn active" id="trailOn">On</button>
+          <button class="toggle-btn" id="trailOff">Off</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="status" id="status">x: 0 · y: 0 · wings: 0.00</div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+      // ─── Canvas setup ───────────────────────────────────────────────
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      function resize() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      // ─── Custom cursor ───────────────────────────────────────────────
+      const cursorEl = document.getElementById("cursor");
+      const ringEl = document.getElementById("cursorRing");
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let ringX = mouseX, ringY = mouseY;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursorEl.style.left = mouseX + "px";
+        cursorEl.style.top = mouseY + "px";
+      });
+
+      function animateRing() {
+        ringX += (mouseX - ringX) * 0.15;
+        ringY += (mouseY - ringY) * 0.15;
+        ringEl.style.left = ringX + "px";
+        ringEl.style.top = ringY + "px";
+        requestAnimationFrame(animateRing);
+      }
+      animateRing();
+
+      // ─── Controls state ──────────────────────────────────────────────
+      const state = {
+        flapSpeed: 4,
+        flapAmp: 0.7,
+        followSpeed: 0.05,
+        drift: 1,
+        size: 80,
+        glow: 18,
+        mode: "follow", // follow | float | idle
+        trail: true,
+      };
+
+      function bindSlider(id, key, valId, decimals = 2) {
+        const slider = document.getElementById(id);
+        const display = document.getElementById(valId);
+        slider.addEventListener("input", () => {
+          state[key] = parseFloat(slider.value);
+          display.textContent = parseFloat(slider.value).toFixed(decimals);
+        });
+      }
+
+      bindSlider("flapSpeed", "flapSpeed", "flapSpeedVal", 1);
+      bindSlider("flapAmp", "flapAmp", "flapAmpVal", 2);
+      bindSlider("followSpeed", "followSpeed", "followSpeedVal", 3);
+      bindSlider("drift", "drift", "driftVal", 1);
+      bindSlider("bfSize", "size", "bfSizeVal", 0);
+      bindSlider("glow", "glow", "glowVal", 0);
+
+      // Mode toggles
+      const modes = [
+        { btn: "modeFollow", val: "follow" },
+        { btn: "modeFloat",  val: "float"  },
+        { btn: "modeIdle",   val: "idle"   },
+      ];
+      modes.forEach(({ btn, val }) => {
+        document.getElementById(btn).addEventListener("click", () => {
+          state.mode = val;
+          modes.forEach(m => document.getElementById(m.btn).classList.toggle("active", m.val === val));
+        });
+      });
+
+      // Trail toggles
+      document.getElementById("trailOn").addEventListener("click", () => {
+        state.trail = true;
+        document.getElementById("trailOn").classList.add("active");
+        document.getElementById("trailOff").classList.remove("active");
+      });
+      document.getElementById("trailOff").addEventListener("click", () => {
+        state.trail = false;
+        document.getElementById("trailOff").classList.add("active");
+        document.getElementById("trailOn").classList.remove("active");
+      });
+
+      // ─── Butterfly state ─────────────────────────────────────────────
+      let bx = window.innerWidth / 2;
+      let by = window.innerHeight / 2;
+      let bvx = 0, bvy = 0;       // velocity (for float mode)
+      let floatAngle = 0;          // autonomous wander angle
+      let t = 0;                   // time tick
+      let currentAngle = 0;        // smoothed body angle
+      let smoothVelX = 0;          // exponential moving average of velocity
+      let smoothVelY = 0;
+
+      // Shortest-arc angle interpolation — always turns the "short way"
+      function lerpAngle(cur, target, amt) {
+        let diff = target - cur;
+        while (diff >  Math.PI) diff -= Math.PI * 2;
+        while (diff < -Math.PI) diff += Math.PI * 2;
+        return cur + diff * amt;
+      }
+
+      // Trail particles
+      const trail = [];
+
+      // ─── Draw butterfly ──────────────────────────────────────────────
+      // wingPhase in [-1, 1]: -1 = fully closed (vertical), 1 = fully open (flat)
+      function drawButterfly(cx, cy, size, wingPhase, angle) {
+        ctx.save();
+        ctx.translate(cx, cy);
+        ctx.rotate(angle);
+
+        const s = size;
+        // wingPhase: 0 = flat/open, 1 = fully folded up
+        // We use scaleY on the wing shapes to simulate flapping
+        const foldY = Math.abs(wingPhase);        // 0 open → 1 folded
+        const perspX = 1 - foldY * 0.15;          // slight horizontal compress
+        const perspY = 1 - foldY * 0.82;          // vertical compress = folding
+        const glowBlur = state.glow;
+
+        // ── glow layer ──
+        ctx.save();
+        ctx.shadowBlur = glowBlur * 2;
+        ctx.shadowColor = "rgba(91, 196, 245, 0.5)";
+        ctx.globalAlpha = 0.25;
+        drawWings(ctx, s, perspX, perspY, wingPhase);
+        ctx.restore();
+
+        // ── main wings ──
+        ctx.shadowBlur = glowBlur;
+        ctx.shadowColor = "rgba(91, 196, 245, 0.6)";
+        drawWings(ctx, s, perspX, perspY, wingPhase);
+
+        // ── body ──
+        ctx.shadowBlur = glowBlur * 0.5;
+        ctx.shadowColor = "rgba(147, 217, 255, 0.8)";
+        drawBody(ctx, s);
+
+        ctx.restore();
+      }
+
+      function drawWings(ctx, s, perspX, perspY, wingPhase) {
+        // Wings always arch toward the head (wy = 1).
+        // The flap is expressed purely through perspY compression — no sign flip,
+        // no sudden mirror. perspY goes 1 → ~0.18 → 1 twice per sine cycle.
+
+        // ── Upper wings (large) ──
+        ctx.save();
+        ctx.scale(-perspX, perspY);
+        wingPath(ctx, s, true);
+        ctx.restore();
+
+        ctx.save();
+        ctx.scale(perspX, perspY);
+        wingPath(ctx, s, true);
+        ctx.restore();
+
+        // ── Lower wings (smaller) ──
+        ctx.save();
+        ctx.scale(-perspX * 0.85, perspY * 0.7);
+        ctx.translate(0, -s * 0.55);
+        wingPath(ctx, s * 0.65, false);
+        ctx.restore();
+
+        ctx.save();
+        ctx.scale(perspX * 0.85, perspY * 0.7);
+        ctx.translate(0, -s * 0.55);
+        wingPath(ctx, s * 0.65, false);
+        ctx.restore();
+      }
+
+      function wingPath(ctx, s, upper) {
+        ctx.beginPath();
+
+        if (upper) {
+          // Upper wing: rounded teardrop that connects at body center
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(
+            s * 0.3,  -s * 0.1,
+            s * 1.0,  -s * 0.5,
+            s * 0.9,  -s * 0.85
+          );
+          ctx.bezierCurveTo(
+            s * 0.7,  -s * 1.2,
+            s * 0.1,  -s * 1.1,
+            0,         -s * 0.7
+          );
+          ctx.closePath();
+        } else {
+          // Lower wing: rounder, fan-like
+          ctx.moveTo(0, 0);
+          ctx.bezierCurveTo(
+            s * 0.25, -s * 0.05,
+            s * 0.8,  -s * 0.3,
+            s * 0.7,  -s * 0.65
+          );
+          ctx.bezierCurveTo(
+            s * 0.5,  -s * 0.9,
+            s * 0.05, -s * 0.75,
+            0,         -s * 0.45
+          );
+          ctx.closePath();
+        }
+
+        // Fill gradient
+        const grad = ctx.createLinearGradient(0, 0, s * 0.8, -s);
+        grad.addColorStop(0,   "rgba(91, 196, 245, 0.55)");
+        grad.addColorStop(0.5, "rgba(42, 127, 196, 0.35)");
+        grad.addColorStop(1,   "rgba(147, 217, 255, 0.15)");
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        // Stroke
+        ctx.strokeStyle = "rgba(91, 196, 245, 0.7)";
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        // Wing veins
+        drawVeins(ctx, s, upper);
+      }
+
+      function drawVeins(ctx, s, upper) {
+        ctx.strokeStyle = "rgba(147, 217, 255, 0.2)";
+        ctx.lineWidth = 0.5;
+
+        if (upper) {
+          [[0, 0, s*0.6, -s*0.5], [0, 0, s*0.85, -s*0.8], [0, -s*0.3, s*0.7, -s*0.9]].forEach(([x1,y1,x2,y2]) => {
+            ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+          });
+        } else {
+          [[0, 0, s*0.5, -s*0.4], [0, 0, s*0.6, -s*0.6]].forEach(([x1,y1,x2,y2]) => {
+            ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+          });
+        }
+      }
+
+      function drawBody(ctx, s) {
+        // Abdomen
+        ctx.beginPath();
+        ctx.ellipse(0, s * 0.18, s * 0.045, s * 0.32, 0, 0, Math.PI * 2);
+        const bodyGrad = ctx.createLinearGradient(0, -s * 0.1, 0, s * 0.5);
+        bodyGrad.addColorStop(0, "rgba(147, 217, 255, 0.9)");
+        bodyGrad.addColorStop(1, "rgba(42, 127, 196, 0.5)");
+        ctx.fillStyle = bodyGrad;
+        ctx.fill();
+
+        // Head
+        ctx.beginPath();
+        ctx.arc(0, -s * 0.08, s * 0.055, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(147, 217, 255, 0.85)";
+        ctx.fill();
+
+        // Antennae
+        ctx.strokeStyle = "rgba(91, 196, 245, 0.7)";
+        ctx.lineWidth = 0.8;
+        [[-1, 1], [1, 1]].forEach(([sx]) => {
+          ctx.beginPath();
+          ctx.moveTo(sx * s * 0.02, -s * 0.13);
+          ctx.quadraticCurveTo(sx * s * 0.18, -s * 0.4, sx * s * 0.22, -s * 0.55);
+          ctx.stroke();
+          // Tip dot
+          ctx.beginPath();
+          ctx.arc(sx * s * 0.22, -s * 0.55, s * 0.025, 0, Math.PI * 2);
+          ctx.fillStyle = "rgba(147, 217, 255, 0.9)";
+          ctx.fill();
+        });
+      }
+
+      // ─── Trail ───────────────────────────────────────────────────────
+      function spawnTrail(x, y) {
+        if (!state.trail) return;
+        trail.push({
+          x, y,
+          r: Math.random() * 3 + 1,
+          life: 1,
+          decay: Math.random() * 0.02 + 0.01,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+        });
+        if (trail.length > 200) trail.shift();
+      }
+
+      function updateTrail() {
+        for (let i = trail.length - 1; i >= 0; i--) {
+          const p = trail[i];
+          p.life -= p.decay;
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.life <= 0) trail.splice(i, 1);
+        }
+      }
+
+      function drawTrail() {
+        trail.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r * p.life, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(91, 196, 245, ${p.life * 0.4})`;
+          ctx.fill();
+        });
+      }
+
+      // ─── Main loop ───────────────────────────────────────────────────
+      const statusEl = document.getElementById("status");
+
+      function loop() {
+        t += 0.016;
+
+        // ── Movement ──
+        const prevBx = bx, prevBy = by; // snapshot before moving
+
+        if (state.mode === "follow") {
+          bx += (mouseX - bx) * state.followSpeed;
+          by += (mouseY - by) * state.followSpeed;
+        } else if (state.mode === "float") {
+          floatAngle += 0.008 * state.drift;
+          const tx = canvas.width  / 2 + Math.cos(floatAngle)        * canvas.width  * 0.3;
+          const ty = canvas.height / 2 + Math.sin(floatAngle * 1.37) * canvas.height * 0.25;
+          bx += (tx - bx) * 0.012 * state.drift;
+          by += (ty - by) * 0.012 * state.drift;
+        }
+
+        // ── Heading from smoothed velocity ──
+        // Raw per-frame velocity is noisy; run it through an EMA so a single
+        // jittery frame can't flip the heading. Only steer when clearly moving.
+        const rawVelX = bx - prevBx;
+        const rawVelY = by - prevBy;
+        smoothVelX += (rawVelX - smoothVelX) * 0.25;
+        smoothVelY += (rawVelY - smoothVelY) * 0.25;
+        const speed = Math.sqrt(smoothVelX * smoothVelX + smoothVelY * smoothVelY);
+        if (speed > 0.15) {
+          const targetAngle = Math.atan2(smoothVelY, smoothVelX) + Math.PI / 2;
+          currentAngle = lerpAngle(currentAngle, targetAngle, 0.06);
+        }
+
+        // ── Wing flap ──
+        const wingPhase = Math.sin(t * state.flapSpeed) * state.flapAmp;
+
+        // ── Clear / fade ──
+        if (state.trail) {
+          ctx.fillStyle = "rgba(6, 10, 16, 0.18)";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        } else {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.fillStyle = "#060a10";
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+        }
+
+        // ── Trail particles ──
+        if (state.trail && (t * 60 | 0) % 2 === 0) {
+          spawnTrail(bx + (Math.random() - 0.5) * 10, by + (Math.random() - 0.5) * 10);
+        }
+        updateTrail();
+        drawTrail();
+
+        drawButterfly(bx, by, state.size, wingPhase, currentAngle);
+
+        // ── Status ──
+        statusEl.textContent = `x: ${bx.toFixed(0)} · y: ${by.toFixed(0)} · wings: ${wingPhase.toFixed(2)}`;
+
+        requestAnimationFrame(loop);
+      }
+
+      loop();
+    </script>
+  </body>
+</html>

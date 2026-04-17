@@ -1,0 +1,591 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dream Convention 2026</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,600;1,300&family=Playfair+Display:ital@1&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Butterfly intro overlay -->
+    <div id="intro">
+      <canvas id="introCanvas"></canvas>
+    </div>
+
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- HERO -->
+    <header class="hero">
+      <nav>
+        <div class="nav-logo">Dream Convention</div>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">About</a></li>
+          <li><a href="#schedule">Schedule</a></li>
+          <li><a href="#speakers">Speakers</a></li>
+          <li><a href="#prizes">Prizes</a></li>
+          <li><a href="#venue">Venue</a></li>
+          <li><a href="#register">Register</a></li>
+        </ul>
+        <button class="nav-hamburger" id="navHamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+
+      <div class="hero-body">
+        <div class="hero-content">
+          <div class="hero-eyebrow">Developing Student Talent · 2026</div>
+          <h1 class="hero-title">Dream<span>Convention</span></h1>
+          <p class="hero-subtitle">
+            Four Leaders. Two universities. One stage. Pitch your vision to the
+            founders who built their dreams from nothing.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#register" class="btn-primary">Register Now</a>
+            <a href="#schedule" class="btn-ghost">View Schedule</a>
+          </div>
+        </div>
+
+        <div class="hero-image">
+          <img src="assets/hero-dream.png" alt="A figure on a cliff reaching toward a vast starlit sky — the chance of possibility" />
+        </div>
+      </div>
+
+      <div class="hero-bottom">
+        <div class="hero-date-cards">
+          <div class="hero-date-card">
+            <div class="label">Date</div>
+            <div class="value">Sunday, May 3</div>
+          </div>
+          <div class="hero-date-card">
+            <div class="label">Time</div>
+            <div class="value">5:00 – 9:00 PM</div>
+          </div>
+          <div class="hero-date-card">
+            <div class="label">Location</div>
+            <div class="value">Woulfe Alumni Hall</div>
+          </div>
+        </div>
+        <div class="scroll-hint">
+          <div class="scroll-line"></div>
+          Scroll
+        </div>
+      </div>
+
+      <div class="hero-number">26</div>
+    </header>
+
+    <div class="divider"></div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-label">What is Dream Convention</div>
+      <h2 class="section-heading">Where<br />Dreams<br />Come to Life</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            Dream Convention is a one-night leadership event that brings
+            together the brightest entrepreneurial minds from the University of
+            St. Thomas and the University of Minnesota.
+          </p>
+          <p>
+            Hear directly from four leaders who built something from nothing. Their
+            stories, their failures, their breakthroughs. Then take the stage
+            and pitch your own.
+          </p>
+          <p>
+            Real judges. Real prize money. A real shot at turning your idea into
+            something more.
+          </p>
+          <div class="schools">
+            <div class="school-badge">University of St. Thomas</div>
+            <div class="school-badge">University of Minnesota</div>
+          </div>
+        </div>
+        <div class="about-stats">
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Speakers</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">2</div>
+            <div class="stat-label">Universities</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">4</div>
+            <div class="stat-label">Hours of Programming</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">$$$</div>
+            <div class="stat-label">In Prize Money</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SCHEDULE -->
+    <section id="schedule">
+      <div class="section-label">May 3rd, 2026</div>
+      <h2 class="section-heading">The Night's<br />Programme</h2>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-time">5:00 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Doors Open &amp; Welcome</h3>
+            <p>
+              Check in and connect with students from both
+              universities before the evening begins.
+            </p>
+            <span class="timeline-tag">Networking + Food</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">5:30 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>CEO Keynote Sessions and Dinner</h3>
+            <p>
+              Four CEOs take the stage — back to back — sharing raw, unfiltered
+              stories of building their companies. What worked. What didn't.
+              What they wish they knew.
+            </p>
+            <span class="timeline-tag">Keynote Speakers</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">7:30 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Student Pitch Competition</h3>
+            <p>
+              Teams take the stage to pitch their ideas to our panel of surprise
+              founders. 5 minutes to pitch. 3 minutes for Q&amp;A. No mercy —
+              just honest feedback.
+            </p>
+            <span class="timeline-tag">Main Event</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">8:30 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Judges Deliberation &amp; Reflection</h3>
+            <p>
+              While the judges make their decision, mingle with speakers,
+              founders, and delve into your passions and ideas.
+            </p>
+            <span class="timeline-tag">Networking + Food</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-time">9:00 PM</div>
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h3>Winners Announced</h3>
+            <p>
+              The moment you've been working toward. Prize money awarded. Dreams
+              recognized.
+            </p>
+            <span class="timeline-tag">Awards</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- SPEAKERS -->
+    <section id="speakers">
+      <div class="section-label">Hear From The Best</div>
+      <h2 class="section-heading">CEO<br />Speakers</h2>
+
+      <div class="speakers-grid">
+        <div class="speaker-card">
+          <img class="speaker-photo" src="assets/speaker-maritza.png" alt="Maritza Lerman-Yoes" />
+          <div class="speaker-number">01</div>
+          <div class="speaker-role">Founder & Creative Director · Future Trashcan LLC</div>
+          <div class="speaker-name">Maritza Lerman-Yoes</div>
+          <div class="speaker-desc">
+            A culture architect who has shaped digital narratives for Tesla, Apple, and Playboy.
+            Webby Award winner and founder of her own creative strategy firm, bridging art,
+            technology, and brand storytelling.
+          </div>
+        </div>
+        <div class="speaker-card">
+          <img class="speaker-photo" src="assets/speaker-jonathan.png" alt="Jonathan Keiser" />
+          <div class="speaker-number">02</div>
+          <div class="speaker-role">AVP for AI Enablement & Innovation · University of St. Thomas</div>
+          <div class="speaker-name">Jonathan Keiser</div>
+          <div class="speaker-desc">
+            Chief Academic Technology Officer at UST and architect of its AI Leadership
+            graduate program. Leading the charge on how universities integrate AI responsibly
+            into the classroom and workforce preparation.
+          </div>
+        </div>
+        <div class="speaker-card">
+          <img class="speaker-photo" src="assets/speaker-cole.png" alt="Cole Stevens" />
+          <div class="speaker-number">03</div>
+          <div class="speaker-role">Co-Founder & Executive Director · Bridgemakers</div>
+          <div class="speaker-name">Cole Stevens</div>
+          <div class="speaker-desc">
+            Led a legislative campaign delivering $35M+ in economic relief for 20,000
+            working students. Co-founded Bridgemakers, raising $4M+ for youth leadership,
+            and personally coached 22+ early-stage entrepreneurs to launch.
+          </div>
+        </div>
+        <div class="speaker-card">
+          <img class="speaker-photo" src="assets/speaker-caroline.png" alt="Caroline Holden" />
+          <div class="speaker-number">04</div>
+          <div class="speaker-role">Tech & AI Strategist · Swift Start Go</div>
+          <div class="speaker-name">Caroline Holden</div>
+          <div class="speaker-desc">
+            Helped orchestrate a 9-figure acquisition when AI startup Datavolo was sold
+            to Snowflake. Veteran of startups, VC, and media in NYC and Minneapolis with
+            deep expertise in brand strategy, AI, and growth.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- PRIZES -->
+    <div class="prizes-wrapper">
+      <section id="prizes" class="prizes-section">
+        <div class="section-label">What You're Competing For</div>
+        <h2 class="section-heading">Prize<br />Money</h2>
+
+        <div class="prizes-grid">
+          <div class="prize-card">
+            <span class="prize-trophy">🏆</span>
+            <div class="prize-rank">First Place</div>
+            <div class="prize-amount">$300</div>
+            <div class="prize-label">Grand Prize Winner</div>
+          </div>
+          <div class="prize-card">
+            <span class="prize-trophy">🥈</span>
+            <div class="prize-rank">Second Place</div>
+            <div class="prize-amount">$200</div>
+            <div class="prize-label">Runner-Up</div>
+          </div>
+          <div class="prize-card">
+            <span class="prize-trophy">🥉</span>
+            <div class="prize-rank">Third Place</div>
+            <div class="prize-amount">$100</div>
+            <div class="prize-label">Third Place Finish</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- JUDGES -->
+    <section id="judges" class="judges-section">
+      <div class="section-label section-label--center">The Jury</div>
+      <h2 class="section-heading">Who's<br />Judging You</h2>
+
+      <div class="judges-mystery">
+        <h3>The Founders Are a Surprise</h3>
+        <p>
+          Our panel of judges are real founders — people who have built, scaled,
+          and sold companies. Their identities will be revealed the night of the
+          event.
+        </p>
+        <div class="mystery-badges">
+          <div class="mystery-badge">Serial Founders</div>
+          <div class="mystery-badge">Industry Leaders</div>
+          <div class="mystery-badge">Investors</div>
+          <div class="mystery-badge">Revealed May 1st</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- VENUE -->
+    <section id="venue">
+      <div class="section-label">Where It Happens</div>
+      <h2 class="section-heading">The<br />Venue</h2>
+
+      <div class="venue-grid">
+        <div class="venue-info">
+          <h3>Woulfe Alumni Hall</h3>
+          <p class="venue-address">University of St. Thomas, St. Paul, Minnesota</p>
+
+          <div class="venue-detail">
+            <span class="icon">📅</span>
+            <div><strong>Friday, May 3rd, 2026</strong></div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">⏰</span>
+            <div><strong>4:00 PM – 9:00 PM</strong></div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">📍</span>
+            <div>
+              <strong>Woulfe Alumni Hall, University of St. Thomas</strong><br />
+              St. Paul, Minnesota
+            </div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">🍽</span>
+            <div>
+              <strong>Food &amp; Drinks Provided</strong> — Complimentary for
+              all attendees
+            </div>
+          </div>
+          <div class="venue-detail">
+            <span class="icon">🎓</span>
+            <div>
+              Open to students from
+              <strong>University of St. Thomas</strong> and
+              <strong>University of Minnesota</strong>
+            </div>
+          </div>
+        </div>
+
+        <div class="venue-map-placeholder">
+          <div class="map-icon">📍</div>
+          <div>Woulfe Alumni Hall</div>
+          <div class="venue-map-sub">University of St. Thomas · St. Paul, MN</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- REGISTER -->
+    <section id="register" class="register-section">
+      <div class="section-label section-label--center">Limited Spots Available</div>
+      <h2 class="section-heading">Ready to<br />Dream Bigger?</h2>
+      <p class="register-body">
+        This is your chance to pitch in front of real founders, learn from four
+        CEOs, and compete for serious prize money. Don't watch from the
+        sidelines.
+      </p>
+      <a href="#" class="btn-primary btn-register">Register Your Team</a>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">Dream Convention 2026</div>
+      <div class="footer-copy">
+        Woulfe Alumni Hall · University of St. Thomas · May 3, 2026 · 4–9 PM
+      </div>
+    </footer>
+
+    <!-- ── Butterfly intro animation ─────────────────────────────────── -->
+    <script>
+      (function () {
+        const intro  = document.getElementById('intro');
+        const canvas = document.getElementById('introCanvas');
+        const ctx    = canvas.getContext('2d');
+
+        function resize() {
+          canvas.width  = window.innerWidth;
+          canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        let bx = canvas.width / 2, by = canvas.height / 2;
+        let floatAngle = 0, t = 0;
+        let currentAngle = 0, smoothVelX = 0, smoothVelY = 0;
+        const trail = [];
+
+        function lerpAngle(cur, target, amt) {
+          let diff = target - cur;
+          while (diff >  Math.PI) diff -= Math.PI * 2;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          return cur + diff * amt;
+        }
+
+        function wingPath(ctx, s, upper) {
+          ctx.beginPath();
+          if (upper) {
+            ctx.moveTo(0, 0);
+            ctx.bezierCurveTo( s*0.3, -s*0.1,  s*1.0, -s*0.5,  s*0.9, -s*0.85);
+            ctx.bezierCurveTo( s*0.7, -s*1.2,  s*0.1, -s*1.1,  0,     -s*0.7);
+          } else {
+            ctx.moveTo(0, 0);
+            ctx.bezierCurveTo( s*0.25, -s*0.05, s*0.8, -s*0.3,  s*0.7, -s*0.65);
+            ctx.bezierCurveTo( s*0.5,  -s*0.9,  s*0.05,-s*0.75, 0,     -s*0.45);
+          }
+          ctx.closePath();
+          const g = ctx.createLinearGradient(0, 0, s*0.8, -s);
+          g.addColorStop(0,   'rgba(91,196,245,0.55)');
+          g.addColorStop(0.5, 'rgba(42,127,196,0.35)');
+          g.addColorStop(1,   'rgba(147,217,255,0.15)');
+          ctx.fillStyle = g;
+          ctx.fill();
+          ctx.strokeStyle = 'rgba(91,196,245,0.7)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.strokeStyle = 'rgba(147,217,255,0.2)';
+          ctx.lineWidth = 0.5;
+          const veins = upper
+            ? [[0,0,s*.6,-s*.5],[0,0,s*.85,-s*.8],[0,-s*.3,s*.7,-s*.9]]
+            : [[0,0,s*.5,-s*.4],[0,0,s*.6,-s*.6]];
+          veins.forEach(([x1,y1,x2,y2]) => {
+            ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+          });
+        }
+
+        function drawWings(ctx, s, perspX, perspY) {
+          ctx.save(); ctx.scale(-perspX, perspY);         wingPath(ctx, s, true);  ctx.restore();
+          ctx.save(); ctx.scale( perspX, perspY);         wingPath(ctx, s, true);  ctx.restore();
+          ctx.save(); ctx.scale(-perspX*.85, perspY*.7);  ctx.translate(0,-s*.55); wingPath(ctx,s*.65,false); ctx.restore();
+          ctx.save(); ctx.scale( perspX*.85, perspY*.7);  ctx.translate(0,-s*.55); wingPath(ctx,s*.65,false); ctx.restore();
+        }
+
+        function drawBody(ctx, s) {
+          ctx.beginPath();
+          ctx.ellipse(0, s*.18, s*.045, s*.32, 0, 0, Math.PI*2);
+          const bg = ctx.createLinearGradient(0,-s*.1,0,s*.5);
+          bg.addColorStop(0,'rgba(147,217,255,0.9)');
+          bg.addColorStop(1,'rgba(42,127,196,0.5)');
+          ctx.fillStyle = bg; ctx.fill();
+          ctx.beginPath(); ctx.arc(0,-s*.08,s*.055,0,Math.PI*2);
+          ctx.fillStyle='rgba(147,217,255,0.85)'; ctx.fill();
+          ctx.strokeStyle='rgba(91,196,245,0.7)'; ctx.lineWidth=0.8;
+          [[-1],[1]].forEach(([sx])=>{
+            ctx.beginPath(); ctx.moveTo(sx*s*.02,-s*.13);
+            ctx.quadraticCurveTo(sx*s*.18,-s*.4,sx*s*.22,-s*.55); ctx.stroke();
+            ctx.beginPath(); ctx.arc(sx*s*.22,-s*.55,s*.025,0,Math.PI*2);
+            ctx.fillStyle='rgba(147,217,255,0.9)'; ctx.fill();
+          });
+        }
+
+        function drawButterfly(cx, cy, size, wingPhase, angle) {
+          ctx.save(); ctx.translate(cx,cy); ctx.rotate(angle);
+          const s=size, foldY=Math.abs(wingPhase);
+          const perspX=1-foldY*.15, perspY=1-foldY*.82;
+          ctx.save(); ctx.shadowBlur=36; ctx.shadowColor='rgba(91,196,245,0.5)'; ctx.globalAlpha=0.25;
+          drawWings(ctx,s,perspX,perspY); ctx.restore();
+          ctx.shadowBlur=18; ctx.shadowColor='rgba(91,196,245,0.6)';
+          drawWings(ctx,s,perspX,perspY);
+          ctx.shadowBlur=9;  ctx.shadowColor='rgba(147,217,255,0.8)';
+          drawBody(ctx,s); ctx.restore();
+        }
+
+        function spawnTrail(x, y) {
+          trail.push({ x, y, r:Math.random()*3+1, life:1,
+            decay:Math.random()*.02+.01, vx:(Math.random()-.5)*.4, vy:(Math.random()-.5)*.4 });
+          if (trail.length > 180) trail.shift();
+        }
+
+        let running = true;
+        function loop() {
+          if (!running) return;
+          t += 0.016;
+          floatAngle += 0.008;
+          const w = canvas.width, h = canvas.height;
+          const tx = w/2 + Math.cos(floatAngle)        * w * 0.3;
+          const ty = h/2 + Math.sin(floatAngle * 1.37) * h * 0.25;
+          const prevBx = bx, prevBy = by;
+          bx += (tx - bx) * 0.012;
+          by += (ty - by) * 0.012;
+
+          const rvx = bx-prevBx, rvy = by-prevBy;
+          smoothVelX += (rvx-smoothVelX)*.25;
+          smoothVelY += (rvy-smoothVelY)*.25;
+          const spd = Math.sqrt(smoothVelX*smoothVelX+smoothVelY*smoothVelY);
+          if (spd > 0.15) currentAngle = lerpAngle(currentAngle, Math.atan2(smoothVelY,smoothVelX)+Math.PI/2, 0.06);
+
+          const wingPhase = Math.sin(t*4)*0.7;
+          const size = Math.max(55, Math.min(w,h)*0.13);
+
+          ctx.clearRect(0,0,w,h);
+          ctx.fillStyle='#060a10';
+          ctx.fillRect(0,0,w,h);
+
+          drawButterfly(bx, by, size, wingPhase, currentAngle);
+          requestAnimationFrame(loop);
+        }
+
+        loop();
+
+        setTimeout(() => {
+          intro.style.transition = 'opacity 3s ease';
+          intro.style.opacity    = '0';
+          setTimeout(() => { running = false; intro.remove(); }, 3100);
+        }, 2000);
+      })();
+    </script>
+
+    <script>
+      // ── Custom cursor ───────────────────────────────────────────────
+      const cursor = document.getElementById('cursor');
+      const ring   = document.getElementById('cursorRing');
+      let mx = 0, my = 0, rx = 0, ry = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        cursor.style.transform = `translate(${mx - 5}px, ${my - 5}px)`;
+      });
+
+      (function animateRing() {
+        rx += (mx - rx - 18) * 0.12;
+        ry += (my - ry - 18) * 0.12;
+        ring.style.transform = `translate(${rx}px, ${ry}px)`;
+        requestAnimationFrame(animateRing);
+      })();
+
+      document.querySelectorAll('a, button, .speaker-card, .stat-card, .prize-card').forEach((el) => {
+        el.addEventListener('mouseenter', () => { ring.style.width = ring.style.height = '60px'; });
+        el.addEventListener('mouseleave', () => { ring.style.width = ring.style.height = '36px'; });
+      });
+
+      // ── Hamburger nav ───────────────────────────────────────────────
+      const hamburger = document.getElementById('navHamburger');
+      const navLinks  = document.getElementById('navLinks');
+
+      hamburger.addEventListener('click', () => {
+        const open = navLinks.classList.toggle('open');
+        hamburger.classList.toggle('open', open);
+        hamburger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      });
+
+      // Close nav when a link is tapped
+      navLinks.querySelectorAll('a').forEach((a) => {
+        a.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          hamburger.classList.remove('open');
+          hamburger.setAttribute('aria-label', 'Open menu');
+        });
+      });
+
+      // ── Scroll reveal ───────────────────────────────────────────────
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity   = '1';
+              entry.target.style.transform = 'translateY(0)';
+            }
+          });
+        },
+        { threshold: 0.08 }
+      );
+
+      document.querySelectorAll('section, .timeline-item, .speaker-card, .stat-card, .prize-card').forEach((el, i) => {
+        el.style.opacity    = '0';
+        el.style.transform  = 'translateY(24px)';
+        el.style.transition = `opacity 0.7s ease ${i * 0.04}s, transform 0.7s ease ${i * 0.04}s`;
+        observer.observe(el);
+      });
+    </script>
+  </body>
+</html>
